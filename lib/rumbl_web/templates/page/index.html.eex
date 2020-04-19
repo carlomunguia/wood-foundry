@@ -1,6 +1,6 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Rumbl.io" %></h1>
-  <p>RUMBL OUT LOUD</p>
+  <h1><%= gettext "Welcome to %{name}!", name: "GeochronMechane" %></h1>
+  <p>Spiritemporal OUT LOUD</p>
 </section>
 
 <section class="row">
