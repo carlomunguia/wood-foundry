@@ -1,5 +1,5 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "GeochronMechane" %></h1>
+  <h1><%= gettext "Welcome to %{name}!", name: "GeoChronMechane" %></h1>
   <p>Spiritemporal OUT LOUD</p>
 </section>
 
