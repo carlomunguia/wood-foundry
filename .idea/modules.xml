@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$//rumbl.iml" filepath="$PROJECT_DIR$//rumbl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rumbl.iml" filepath="$PROJECT_DIR$/rumbl.iml" />
     </modules>
   </component>
 </project>

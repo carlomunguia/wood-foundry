@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/_build" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/comeonin" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/connection" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy" />
@@ -37,6 +39,7 @@
       <excludeFolder url="file://$MODULE_DIR$/deps" />
       <excludeFolder url="file://$MODULE_DIR$/doc" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/priv/static" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="phoenix" level="project" />
