@@ -5,8 +5,9 @@ defmodule Rumbl.Multimedia do
 
   import Ecto.Query, warn: false
   alias Rumbl.Repo
-
+  alias Rumbl.Accounts
   alias Rumbl.Multimedia.Video
+
 
   @doc """
   Returns the list of videos.
@@ -49,7 +50,7 @@ defmodule Rumbl.Multimedia do
       {:error, %Ecto.Changeset{}}
 
   """
-  alias Rumbl.Accounts
+
   def create_video(%Accounts.User{} = user, attrs \\ %{}) do
     %Video{}
     |> Video.changeset(attrs)
@@ -119,6 +120,7 @@ defmodule Rumbl.Multimedia do
   defp user_videos_query(query, %Accounts.User{id: user_id}) do
     from(v in query, where: v.user_id == ^user_id)
   end
+
 
   alias Rumbl.Multimedia.Category
 

@@ -6,3 +6,4 @@ defmodule RumblWeb.PageControllerTest do
     assert html_response(conn, 200) =~ "Welcome to the Pink Ivory Foundry!!"
   end
 end
+

@@ -9,6 +9,11 @@ defmodule RumblWeb.VideoController do
     render(conn, "index.html", videos: videos)
   end
 
+  def show(conn, %{"id" => id}, current_user) do
+    video = Multimedia.get_user_video!(current_user, id)
+    render(conn, "show.html", video: video)
+  end
+
   def new(conn, _params, _current_user) do
     changeset = Multimedia.change_video(%Video{})
     render(conn, "new.html", changeset: changeset)
@@ -26,10 +31,7 @@ defmodule RumblWeb.VideoController do
     end
   end
 
-  def show(conn, %{"id" => id}, current_user) do
-    video = Multimedia.get_user_video!(current_user, id)
-    render(conn, "show.html", video: video)
-  end
+
 
   def edit(conn, %{"id" => id}, current_user) do
     video = Multimedia.get_user_video!(current_user, id)
