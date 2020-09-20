@@ -1,4 +1,4 @@
-# Rumbl
+# Pink Ivory Foundry
 
 To start your Phoenix server:
 
