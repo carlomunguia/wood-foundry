@@ -1,4 +1,4 @@
-# Pink Ivory Foundry
+# Pink Ivory Foundry - An Exotic Woods Video Page
 
 To start your Phoenix server:
 
