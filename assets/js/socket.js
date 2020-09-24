@@ -15,7 +15,6 @@ let socket = new Socket("/socket", {
     }
 })
 
-export default socket
 
 
 // When you connect, you'll often need to authenticate the client.
@@ -68,3 +67,4 @@ socket.connect()
 //   .receive("ok", resp => { console.log("Joined successfully", resp) })
 //   .receive("error", resp => { console.log("Unable to join", resp) })
 
+export default socket
