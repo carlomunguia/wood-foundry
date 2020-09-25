@@ -1,5 +1,8 @@
 # Pink Ivory Foundry - An Exotic Woods Video Page
 
+This site is a resource for exotic wood hobbyists to refer 
+training tips & tutorials on certain species of wood!
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
