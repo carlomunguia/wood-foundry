@@ -3,6 +3,8 @@
 This site is a resource for exotic wood hobbyists to refer 
 training tips & tutorials on certain species of wood!
 
+This section will continue to evolve as requirements are developed!
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
