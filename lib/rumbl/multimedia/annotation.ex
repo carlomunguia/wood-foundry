@@ -5,11 +5,11 @@ defmodule Rumbl.Multimedia.Annotation do
   schema "annotations" do
     field :at, :integer
     field :body, :string
-    belongs_to :user, Rumbl.Accounts.User
-    belongs_to :video, Rumbl.Multimedia.Video
+    field :user_id, :id
+    field :video_id, :id
+
     timestamps()
   end
-
 
   @doc false
   def changeset(annotation, attrs) do

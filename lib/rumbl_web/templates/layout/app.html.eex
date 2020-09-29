@@ -38,7 +38,6 @@
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <%= render @view_module, @view_template, assigns %>
 </main>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 <script>window.userToken = "<%= assigns[:user_token] %>"</script>
 <script type="text/javascript"
         src="<%= Routes.static_url(@conn, "/js/app.js") %>"></script>

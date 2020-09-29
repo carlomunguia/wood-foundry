@@ -11,7 +11,8 @@ defmodule Rumbl.Application do
       # Start the Ecto repository
       Rumbl.Repo,
       # Start the endpoint when the application starts
-      RumblWeb.Endpoint
+      RumblWeb.Endpoint,
+      RumblWeb.Presence
       # Starts a worker by calling: Rumbl.Worker.start_link(arg)
       # {Rumbl.Worker, arg},
     ]

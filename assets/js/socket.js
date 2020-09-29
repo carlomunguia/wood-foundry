@@ -9,13 +9,11 @@
 import {Socket} from "phoenix"
 
 let socket = new Socket("/socket", {
-    params:{token: window.userToken},
-    logger:(kind, msg, data) => {
-        console.log(`${kind}: ${msg}`, data)
-    }
+    params: {token: window.userToken},
+    logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data) }
 })
-
-
+socket.connect()
+export default socket
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -59,7 +57,6 @@ let socket = new Socket("/socket", {
 //     end
 //
 // Finally, connect to the socket:
-socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
 // let channel = socket.channel("topic:subtopic", {})
@@ -67,4 +64,3 @@ socket.connect()
 //   .receive("ok", resp => { console.log("Joined successfully", resp) })
 //   .receive("error", resp => { console.log("Unable to join", resp) })
 
-export default socket
