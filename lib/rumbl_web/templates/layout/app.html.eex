@@ -28,8 +28,8 @@
             </ul>
         </nav>
         <a href="http://phoenixframework.org/" class="phx-logo">
-            <img src="<%= Routes.static_url(@conn, "/images/phoenix.png") %>"
-                 alt="Phoenix Framework Logo"/>
+            <img src="<%= Routes.static_url(@conn, "/images/nobori.png") %>"
+                 alt="Pink Ivory Foundry"/>
         </a>
     </section>
 </header>
