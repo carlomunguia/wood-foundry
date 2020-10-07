@@ -12,7 +12,8 @@ defmodule Rumbl.Multimedia.Annotation do
     timestamps()
   end
 
-  @doc false
+  @doc
+#  This is the Annotation changeset
   def changeset(annotation, attrs) do
     annotation
     |> cast(attrs, [:body, :at])
