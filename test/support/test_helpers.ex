@@ -5,12 +5,14 @@ defmodule Rumbl.TestHelpers do
     }
 
   def user_fixture(attrs \\ %{}) do
+    unique_id = System.unique_integer([:positive])
     {:ok, user} =
       attrs
       |> Enum.into(
            %{
              name: "Some User",
-             username: "user#{System.unique_integer([:positive])}",
+             username: attrs[:username] || "user#{unique_id}",
+             email: "user#{unique_id}@example.com",
              password: attrs[:password] || "supersecret"
            }
          )

@@ -5,12 +5,13 @@ defmodule Rumbl.MixProject do
     [
       app: :rumbl,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      listeners: [Phoenix.CodeReloader]
     ]
   end
 
@@ -20,7 +21,7 @@ defmodule Rumbl.MixProject do
   def application do
     [
       mod: {Rumbl.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -33,17 +34,52 @@ defmodule Rumbl.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.16"},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.1"},
+      {:phoenix, "~> 1.8.0"},
+      {:phoenix_ecto, "~> 4.6"},
+      {:ecto_sql, "~> 3.12"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
-      {:pbkdf2_elixir, "~> 1.0"}
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_live_reload, "~> 1.5", only: :dev},
+      {:phoenix_live_view, "~> 1.1.0"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_live_dashboard, "~> 0.8.4"},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.4.0", runtime: Mix.env() == :dev},
+      {:heroicons, "~> 0.5"},
+      {:swoosh, "~> 1.16"},
+      {:finch, "~> 0.18"},
+      {:telemetry_metrics, "~> 1.0"},
+      {:telemetry_poller, "~> 1.1"},
+      {:gettext, "~> 1.0"},
+      {:jason, "~> 1.4"},
+      {:dns_cluster, "~> 0.2.0"},
+      {:bandit, "~> 1.5"},
+      {:pbkdf2_elixir, "~> 2.0"},
+      {:phoenix_html_helpers, "~> 1.0"},
+      {:phoenix_view, "~> 2.0"},
+      {:hackney, "~> 1.18"},
+      # Authentication and security
+      {:bcrypt_elixir, "~> 3.0"},
+      # Performance and caching
+      {:cachex, "~> 4.1"},
+      {:oban, "~> 2.17"},
+      # Observability
+      {:sentry, "~> 11.0"},
+      {:logger_json, "~> 7.0"},
+      # API and GraphQL
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"},
+      {:cors_plug, "~> 3.0"},
+      # File uploads and processing
+      {:ex_aws, "~> 2.5"},
+      {:ex_aws_s3, "~> 2.4"},
+      {:image, "~> 0.54"},
+
+      # Code generation and development tools
+      {:igniter, "~> 0.5", only: [:dev, :test]},
+      # Testing
+      {:stream_data, "~> 1.1", only: [:test, :dev]},
+      {:ex_machina, "~> 2.8", only: [:test]}
     ]
   end
 
@@ -55,9 +91,13 @@ defmodule Rumbl.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind rumbl", "esbuild rumbl"],
+      "assets.deploy": ["tailwind rumbl --minify", "esbuild rumbl --minify", "phx.digest"]
     ]
   end
 end

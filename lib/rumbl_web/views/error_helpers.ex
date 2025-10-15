@@ -3,7 +3,9 @@ defmodule RumblWeb.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
-  use Phoenix.HTML
+  import Phoenix.HTML.Form
+  use PhoenixHTMLHelpers
+  use Gettext, backend: RumblWeb.Gettext
 
   @doc """
   Generates tag for inlined form input errors.

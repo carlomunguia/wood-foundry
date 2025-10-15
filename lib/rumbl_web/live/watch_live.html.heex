@@ -1,0 +1,116 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Video Player Section -->
+  <div class="lg:col-span-2">
+    <.header>
+      <%= @video.title %>
+      <:subtitle><%= @video.description %></:subtitle>
+    </.header>
+
+    <!-- Video Player Container -->
+    <div 
+      id="video-player" 
+      class="relative w-full bg-black rounded-lg overflow-hidden shadow-lg"
+      style="aspect-ratio: 16 / 9;"
+      phx-hook="VideoPlayer"
+      data-video-id={@video.id}
+      data-player-id={player_id(@video)}
+    >
+      <!-- Video will be embedded here by JavaScript -->
+    </div>
+
+    <!-- Video Controls -->
+    <div class="mt-4 flex items-center space-x-4">
+      <div class="text-sm text-gray-600">
+        Current Time: <span id="current-time"><%= format_time(@current_time) %></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Annotations Sidebar -->
+  <div class="space-y-6">
+    <!-- Add New Annotation -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-4">Add Annotation</h3>
+      
+      <.simple_form 
+        for={@annotation_form} 
+        phx-change="validate_annotation" 
+        phx-submit="save_annotation"
+      >
+        <.input 
+          field={@annotation_form[:at]} 
+          type="number" 
+          label="Time (seconds)" 
+          value={@current_time}
+          min="0"
+        />
+        <.input 
+          field={@annotation_form[:body]} 
+          type="textarea" 
+          label="Comment" 
+          placeholder="Add your comment..."
+          rows="3"
+        />
+        <:actions>
+          <.button phx-disable-with="Adding...">Add Annotation</.button>
+        </:actions>
+      </.simple_form>
+    </div>
+
+    <!-- Annotations List -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-4">
+        Annotations (<%= length(@annotations) %>)
+      </h3>
+      
+      <div class="space-y-3 max-h-96 overflow-y-auto">
+        <%= for annotation <- Enum.sort_by(@annotations, & &1.at) do %>
+          <div class="border-l-4 border-blue-500 pl-4 py-2">
+            <div class="flex items-center justify-between mb-1">
+              <button 
+                class="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                phx-click="seek_to"
+                phx-value-time={annotation.at}
+              >
+                <%= format_time(annotation.at) %>
+              </button>
+              <span class="text-xs text-gray-500">
+                <%= if annotation.user do %>
+                  by <%= annotation.user.name || annotation.user.username %>
+                <% end %>
+              </span>
+            </div>
+            <p class="text-sm text-gray-700"><%= annotation.body %></p>
+          </div>
+        <% end %>
+        
+        <%= if Enum.empty?(@annotations) do %>
+          <div class="text-center py-8 text-gray-500">
+            <p>No annotations yet.</p>
+            <p class="text-sm">Be the first to add a comment!</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Users Online -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-4">
+        Viewers Online (<%= length(@users_online) %>)
+      </h3>
+      
+      <div class="space-y-2">
+        <%= for user <- @users_online do %>
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span class="text-sm"><%= user.name || user.username %></span>
+          </div>
+        <% end %>
+        
+        <%= if Enum.empty?(@users_online) do %>
+          <p class="text-sm text-gray-500">No other viewers online</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

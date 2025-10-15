@@ -17,13 +17,21 @@ defmodule RumblWeb do
   and import those modules here.
   """
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
-      use Phoenix.Controller, namespace: RumblWeb
+      use Phoenix.Controller, 
+        namespace: RumblWeb,
+        formats: [:html, :json],
+        layouts: [html: RumblWeb.Layouts]
+      
       import Plug.Conn
-      import RumblWeb.Gettext
+      use Gettext, backend: RumblWeb.Gettext
       import RumblWeb.Auth, only: [authenticate_user: 2] # New import
       alias RumblWeb.Router.Helpers, as: Routes
+      
+      unquote(verified_routes())
     end
   end
 
@@ -35,22 +43,60 @@ defmodule RumblWeb do
         namespace: RumblWeb
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+      import Phoenix.Controller, 
+        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
+      # Import all HTML functionality (forms, tags, etc)
+      import Phoenix.HTML
+      import Phoenix.HTML.Form
+      use PhoenixHTMLHelpers
 
       import RumblWeb.ErrorHelpers
-      import RumblWeb.Gettext
-      alias RumblWeb.Router.Helpers, as: Routes
+      use Gettext, backend: RumblWeb.Gettext
+      unquote(verified_routes())
+    end
+  end
+
+  def live_view do
+    quote do
+      use Phoenix.LiveView, layout: {RumblWeb.Layouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(html_helpers())
+    end
+  end
+
+  defp html_helpers do
+    quote do
+      # HTML escaping functionality
+      import Phoenix.HTML
+      # Core UI components and translation
+      import RumblWeb.CoreComponents
+      # Video view helpers
+      import RumblWeb.VideoView, only: [video_view_count: 1]
+      use Gettext, backend: RumblWeb.Gettext
+
+      # Shortcut for generating JS commands
+      alias Phoenix.LiveView.JS
+
+      # Routes generation with the ~p sigil
+      unquote(verified_routes())
     end
   end
 
   def router do
     quote do
-      use Phoenix.Router
+      use Phoenix.Router, helpers: false
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
       import RumblWeb.Auth, only: [authenticate_user: 2] # New Import
     end
   end
@@ -58,7 +104,29 @@ defmodule RumblWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import RumblWeb.Gettext
+      use Gettext, backend: RumblWeb.Gettext
+    end
+  end
+
+  def html do
+    quote do
+      use Phoenix.Component
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
+
+      # Include general helpers for rendering HTML
+      unquote(html_helpers())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: RumblWeb.Endpoint,
+        router: RumblWeb.Router,
+        statics: RumblWeb.static_paths()
     end
   end
 

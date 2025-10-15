@@ -24,7 +24,7 @@ defmodule RumblWeb.VideoController do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video created successfully.")
-        |> redirect(to: Routes.video_path(conn, :show, video))
+        |> redirect(to: "/manage/videos/#{video.id}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -46,7 +46,7 @@ defmodule RumblWeb.VideoController do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video updated successfully.")
-        |> redirect(to: Routes.video_path(conn, :show, video))
+        |> redirect(to: "/manage/videos/#{video.id}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", video: video, changeset: changeset)
@@ -59,7 +59,7 @@ defmodule RumblWeb.VideoController do
 
     conn
     |> put_flash(:info, "Video deleted successfully.")
-    |> redirect(to: Routes.video_path(conn, :index))
+    |> redirect(to: "/manage/videos")
   end
 
   def action(conn, _) do

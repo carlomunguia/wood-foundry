@@ -7,8 +7,11 @@ defmodule RumblWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_rumbl_key",
-    signing_salt: "NgomWJn6"
+    signing_salt: "NgomWJn6",
+    same_site: "Lax"
   ]
+
+  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   socket "/socket", RumblWeb.UserSocket,
     websocket: true,
@@ -22,7 +25,13 @@ defmodule RumblWeb.Endpoint do
     at: "/",
     from: :rumbl,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: RumblWeb.static_paths()
+
+  # Serve uploaded files
+  plug Plug.Static,
+    at: "/uploads",
+    from: Path.join([Application.app_dir(:rumbl), "priv", "static", "uploads"]),
+    gzip: false
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

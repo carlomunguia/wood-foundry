@@ -1,5 +1,5 @@
 <h1>Login</h1>
-    <%= form_for @conn,Routes.session_path(@conn, :create),[as: :session],fn f -> %>
+    <%= form_for @conn, ~p"/sessions", [as: :session], fn f -> %>
 <div>
 <%= text_input f, :username, placeholder: "Username" %>
 </div>

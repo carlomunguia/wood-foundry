@@ -1,0 +1,51 @@
+<.header>
+  <%= @video.title %>
+  <:subtitle>Video details and information</:subtitle>
+  <:actions>
+    <.link patch={~p"/manage/videos/#{@video}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit video</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @video.title %></:item>
+  <:item title="URL">
+    <.link href={@video.url} target="_blank" class="text-blue-600 hover:text-blue-800">
+      <%= @video.url %>
+    </.link>
+  </:item>
+  <:item title="Description"><%= @video.description %></:item>
+  <:item title="Category"><%= @video.category && @video.category.name %></:item>
+  <:item title="Slug"><%= @video.slug %></:item>
+  <:item title="Views">
+    <%= video_view_count(@video) %>
+  </:item>
+</.list>
+
+<div class="mt-8 space-y-4">
+  <h3 class="text-lg font-semibold">Video Preview</h3>
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe 
+      src={@video.url} 
+      frameborder="0" 
+      allowfullscreen
+      class="w-full h-96 rounded-lg"
+    >
+    </iframe>
+  </div>
+</div>
+
+<.back navigate={~p"/manage/videos"}>Back to videos</.back>
+
+<.modal :if={@live_action == :edit} id="video-modal" show on_cancel={JS.patch(~p"/manage/videos/#{@video}")}>
+  <.live_component
+    module={RumblWeb.VideoLive.FormComponent}
+    id={@video.id}
+    title={@page_title}
+    action={@live_action}
+    video={@video}
+    current_user={@current_user}
+    patch={~p"/manage/videos/#{@video}"}
+  />
+</.modal>

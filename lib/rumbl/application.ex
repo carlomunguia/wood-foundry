@@ -10,6 +10,13 @@ defmodule Rumbl.Application do
     children = [
       # Start the Ecto repository
       Rumbl.Repo,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Rumbl.PubSub},
+      {Oban, Application.fetch_env!(:rumbl, Oban)},
+      # Start Finch
+      {Finch, name: Rumbl.Finch},
+      # Start the Mailer (commented out for now)
+      # Rumbl.Mailer,
       # Start the endpoint when the application starts
       RumblWeb.Endpoint,
       RumblWeb.Presence

@@ -1,4 +1,8 @@
-use Mix.Config
+import Config
+config :rumbl, Oban, testing: :manual
+
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
 
 # Configure your database
 config :rumbl, Rumbl.Repo,
@@ -15,7 +19,9 @@ config :rumbl, RumblWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
+
+# Initialize plugs at runtime for faster test compilation
+config :phoenix, :plug_init_mode, :runtime
 
 config :pbkdf2_elixir, :rounds, 1
-

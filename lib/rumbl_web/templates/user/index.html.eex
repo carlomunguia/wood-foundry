@@ -4,7 +4,7 @@
 <%= for user <- @users do %>
     <tr>
     <td><%= render "user.html", user: user %></td>
-    <td><%= link "View", to: Routes.user_path(@conn, :show, user.id) %></td>
+    <td><%= link "View", to: ~p"/users/#{user}" %></td>
     </tr>
  <% end %>
 </table>
