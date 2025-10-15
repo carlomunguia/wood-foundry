@@ -1,0 +1,126 @@
+// See the Tailwind configuration guide for advanced usage
+// https://tailwindcss.com/docs/configuration
+
+const plugin = require("tailwindcss/plugin")
+const fs = require("fs")
+const path = require("path")
+
+module.exports = {
+  content: [
+    "./js/**/*.js",
+    "../lib/rumbl_web.ex",
+    "../lib/rumbl_web/**/*.*ex"
+  ],
+  theme: {
+    extend: {
+      colors: {
+        brand: "#FD4F00",
+        primary: {
+          50: "#fef2f2",
+          100: "#fee2e2", 
+          500: "#ef4444",
+          600: "#dc2626",
+          700: "#b91c1c",
+          900: "#7f1d1d"
+        },
+        wood: {
+          50: "#fdf8f6",
+          100: "#f2e8e5",
+          200: "#eaddd7",
+          300: "#e0cfc7",
+          400: "#d2bab0",
+          500: "#bfa094",
+          600: "#a18072",
+          700: "#977669",
+          800: "#846358",
+          900: "#43302b"
+        }
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-in': 'slideIn 0.3s ease-out',
+        'bounce-in': 'bounceIn 0.6s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideIn: {
+          '0%': { transform: 'translateY(-10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceIn: {
+          '0%, 20%, 53%, 80%, 100%': { transform: 'scale3d(1, 1, 1)' },
+          '40%, 43%': { transform: 'scale3d(1.1, 1.1, 1.1)' },
+          '70%': { transform: 'scale3d(1.05, 1.05, 1.05)' },
+          '90%': { transform: 'scale3d(1.02, 1.02, 1.02)' },
+        }
+      }
+    },
+  },
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    // Allows prefixing tailwind classes with LiveView classes to add rules
+    // only when LiveView classes are applied, for example:
+    //
+    //     <div class="phx-click-loading:animate-ping">
+    //
+    plugin(({addVariant}) => addVariant("phx-no-feedback", [".phx-no-feedback&", ".phx-no-feedback &"])),
+    plugin(({addVariant}) => addVariant("phx-click-loading", [".phx-click-loading&", ".phx-click-loading &"])),
+    plugin(({addVariant}) => addVariant("phx-submit-loading", [".phx-submit-loading&", ".phx-submit-loading &"])),
+    plugin(({addVariant}) => addVariant("phx-change-loading", [".phx-change-loading&", ".phx-change-loading &"])),
+
+    // Embeds Heroicons (https://heroicons.com) into your app.css bundle
+    // See your `CoreComponents.icon/1` for more information.
+    // Temporarily disabled until heroicons directory structure is fixed
+    /*
+    plugin(function({matchComponents, theme}) {
+      let iconsDir = path.join(__dirname, "../deps/heroicons/optimized")
+      let values = {}
+      let icons = [
+        ["", "/24/outline"],
+        ["-solid", "/24/solid"],
+        ["-mini", "/20/solid"],
+        ["-micro", "/16/solid"]
+      ]
+      icons.forEach(([suffix, dir]) => {
+        try {
+          fs.readdirSync(path.join(iconsDir, dir)).forEach(file => {
+            let name = path.basename(file, ".svg") + suffix
+            values[name] = {name, fullPath: path.join(iconsDir, dir, file)}
+          })
+        } catch (e) {
+          // Skip missing directories
+        }
+      })
+      matchComponents({
+        "hero": ({name, fullPath}) => {
+          let content = fs.readFileSync(fullPath).toString().replace(/\r?\n|\r/g, "")
+          let size = theme("spacing.6")
+          if (name.endsWith("-mini")) {
+            size = theme("spacing.5")
+          } else if (name.endsWith("-micro")) {
+            size = theme("spacing.4")
+          }
+          return {
+            [`--hero-${name}`]: `url('data:image/svg+xml;base64,${Buffer.from(content).toString("base64")}')`,
+            "-webkit-mask": `var(--hero-${name})`,
+            "mask": `var(--hero-${name})`,
+            "mask-repeat": "no-repeat",
+            "background-color": "currentColor",
+            "vertical-align": "middle",
+            "display": "inline-block",
+            "width": size,
+            "height": size
+          }
+        }
+      }, {values})
+    })
+    */
+  ]
+}

@@ -1,5 +1,186 @@
-/* This file is for your main application css. */
+/* Modern Phoenix + Tailwind CSS Application */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Legacy CSS imports */
 @import "./phoenix.css";
 @import "./video.css";
+
+/* Custom Design System Components - Using regular CSS for Tailwind v4 compatibility */
+
+/* Button variants */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.btn-primary {
+  background-color: rgb(139 69 19);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: rgb(120 53 15);
+}
+
+.btn-outline {
+  background-color: white;
+  color: rgb(139 69 19);
+  border-color: rgb(139 69 19);
+}
+
+.btn-outline:hover {
+  background-color: rgb(139 69 19);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: rgb(229 231 235);
+  color: rgb(17 24 39);
+}
+
+.btn-secondary:hover {
+  background-color: rgb(209 213 219);
+}
+
+.btn-danger {
+  background-color: rgb(220 38 38);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: rgb(185 28 28);
+}
+
+/* Card components */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(229 231 235);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgb(229 231 235);
+  background-color: rgb(249 250 251);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Form components */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(55 65 81);
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(209 213 219);
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  font-size: 0.875rem;
+}
+
+.form-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-color: rgb(139 69 19);
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.form-error {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(220 38 38);
+}
+
+/* Alert components */
+.alert {
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.alert-info {
+  background-color: rgb(239 246 255);
+  border: 1px solid rgb(191 219 254);
+  color: rgb(30 58 138);
+}
+
+.alert-success {
+  background-color: rgb(240 253 244);
+  border: 1px solid rgb(187 247 208);
+  color: rgb(22 101 52);
+}
+
+.alert-warning {
+  background-color: rgb(255 251 235);
+  border: 1px solid rgb(254 240 138);
+  color: rgb(146 64 14);
+}
+
+.alert-error {
+  background-color: rgb(254 242 242);
+  border: 1px solid rgb(254 202 202);
+  color: rgb(153 27 27);
+}
+
+/* Layout utilities */
+.container-fluid {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.page-header {
+  border-bottom: 1px solid rgb(229 231 235);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
 
