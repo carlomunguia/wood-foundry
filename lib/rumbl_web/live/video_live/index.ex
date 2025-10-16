@@ -11,7 +11,7 @@ defmodule RumblWeb.VideoLive.Index do
       Phoenix.PubSub.subscribe(Rumbl.PubSub, "videos")
     end
 
-    {:ok, 
+    {:ok,
      socket
      |> assign(:page_title, "My Videos")
      |> Phoenix.LiveView.stream_configure(:videos, dom_id: &"video-#{&1.id}")
@@ -81,7 +81,7 @@ defmodule RumblWeb.VideoLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     video = Multimedia.get_video!(id)
-    
+
     if video.user_id == socket.assigns.current_user.id do
       {:ok, _} = Multimedia.delete_video(video)
       Phoenix.PubSub.broadcast!(Rumbl.PubSub, "video_updates", {:video_deleted, video})

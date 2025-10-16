@@ -28,13 +28,13 @@ defmodule RumblWeb.UserForgotPasswordLive do
           <div class="card-body">
             <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
               <div class="form-group">
-                <.input 
-                  field={@form[:email]} 
-                  type="email" 
+                <.input
+                  field={@form[:email]}
+                  type="email"
                   label="Email address"
                   class="form-input"
-                  placeholder="Enter your email address" 
-                  required 
+                  placeholder="Enter your email address"
+                  required
                 />
               </div>
 

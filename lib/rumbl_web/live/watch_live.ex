@@ -7,7 +7,7 @@ defmodule RumblWeb.WatchLive do
   @impl true
   def mount(%{"id" => video_id}, _session, socket) do
     video = Multimedia.get_video!(video_id)
-    
+
     if connected?(socket) do
       # Subscribe to annotation updates for this video
       Phoenix.PubSub.subscribe(Rumbl.PubSub, "video_annotations:#{video_id}")
@@ -16,7 +16,7 @@ defmodule RumblWeb.WatchLive do
     end
 
     annotations = Multimedia.list_annotations(video)
-    
+
     # Track user presence
     if connected?(socket) do
       track_user_presence(socket, video_id)
@@ -34,7 +34,7 @@ defmodule RumblWeb.WatchLive do
 
   @impl true
   def handle_event("validate_annotation", %{"annotation" => annotation_params}, socket) do
-    changeset = 
+    changeset =
       %Annotation{}
       |> Annotation.changeset(annotation_params)
       |> Map.put(:action, :validate)
@@ -59,7 +59,7 @@ defmodule RumblWeb.WatchLive do
         # Reset the form
         new_form = to_form(%Annotation{} |> Annotation.changeset(%{}))
 
-        {:noreply, 
+        {:noreply,
          socket
          |> assign(:annotation_form, new_form)
          |> put_flash(:info, "Annotation added!")}

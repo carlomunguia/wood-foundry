@@ -26,7 +26,7 @@ defmodule RumblWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint RumblWeb.Endpoint
-      
+
       # Import route helpers
       use RumblWeb, :verified_routes
     end

@@ -1,4 +1,21 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to the %{name}!", name: "Pink Ivory Foundry!!" %></h1>
-  <p>The one & only source for Exotic Wood videos & Communication!</p>
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Welcome to <span class="hero-title-accent">Pink Ivory Foundry</span>
+    </h1>
+    <p class="hero-subtitle">
+      Discover the beauty and craftsmanship of exotic woods
+    </p>
+    <p class="hero-description">
+      Learn from master woodworkers and explore our curated collection of educational videos
+    </p>
+    <div class="hero-actions">
+      <a href={~p"/manage/videos"} class="btn btn-primary">
+        Browse Videos
+      </a>
+      <a href={~p"/users/register"} class="btn btn-secondary">
+        Join Community
+      </a>
+    </div>
+  </div>
 </section>

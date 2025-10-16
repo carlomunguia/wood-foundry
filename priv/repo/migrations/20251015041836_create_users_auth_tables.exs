@@ -7,7 +7,7 @@ defmodule Rumbl.Repo.Migrations.CreateUsersAuthTables do
     # Add new authentication fields to existing users table
     alter table(:users) do
       add :email, :citext
-      add :hashed_password, :string  
+      add :hashed_password, :string
       add :confirmed_at, :naive_datetime
     end
 

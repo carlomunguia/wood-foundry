@@ -59,7 +59,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
         <div x-show="uploadMethod === 'file'" x-transition class="mb-6">
           <div class="form-group">
             <label class="form-label">Video File</label>
-            
+
             <!-- File Upload Drop Zone -->
             <div
               x-data="fileUpload()"
@@ -79,12 +79,12 @@ defmodule RumblWeb.VideoLive.FormComponent do
                 <div class="flex text-sm text-gray-600">
                   <label for="video-file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-wood-600 hover:text-wood-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-wood-500">
                     <span>Upload a video file</span>
-                    <input 
-                      id="video-file-upload" 
-                      name="video-file-upload" 
-                      type="file" 
+                    <input
+                      id="video-file-upload"
+                      name="video-file-upload"
+                      type="file"
                       accept="video/*"
-                      class="sr-only" 
+                      class="sr-only"
                       @change="handleFileSelect($event)"
                       phx-target={@myself}
                       phx-hook="FileUpload"
@@ -93,7 +93,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
                   <p class="pl-1">or drag and drop</p>
                 </div>
                 <p class="text-xs text-gray-500">MP4, WebM, AVI, MOV up to 500MB</p>
-                
+
                 <!-- File Preview -->
                 <div x-show="selectedFile" x-transition class="mt-4">
                   <div class="inline-flex items-center px-3 py-2 bg-wood-100 border border-wood-300 rounded-md">
@@ -101,9 +101,9 @@ defmodule RumblWeb.VideoLive.FormComponent do
                       <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
                     </svg>
                     <span class="text-sm text-wood-900" x-text="selectedFile ? selectedFile.name : ''"></span>
-                    <button 
-                      @click="clearFile()" 
-                      type="button" 
+                    <button
+                      @click="clearFile()"
+                      type="button"
                       class="ml-2 text-wood-500 hover:text-wood-700"
                     >
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,18 +111,18 @@ defmodule RumblWeb.VideoLive.FormComponent do
                       </svg>
                     </button>
                   </div>
-                  
+
                   <!-- Upload Progress -->
                   <div x-show="uploadProgress > 0 && uploadProgress < 100" class="mt-2">
                     <div class="bg-gray-200 rounded-full h-2">
-                      <div 
+                      <div
                         class="bg-wood-600 h-2 rounded-full transition-all duration-300"
                         x-bind:style="'width: ' + uploadProgress + '%'"
                       ></div>
                     </div>
                     <p class="text-xs text-gray-600 mt-1" x-text="'Uploading... ' + uploadProgress + '%'"></p>
                   </div>
-                  
+
                   <!-- Upload Complete -->
                   <div x-show="uploadProgress === 100" class="mt-2 text-green-600 text-sm">
                     <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -157,10 +157,10 @@ defmodule RumblWeb.VideoLive.FormComponent do
         <!-- URL Section -->
         <div x-show="uploadMethod === 'url'" x-transition class="mb-6">
           <div class="form-group">
-            <.input 
-              field={@form[:url]} 
-              type="url" 
-              label="YouTube URL" 
+            <.input
+              field={@form[:url]}
+              type="url"
+              label="YouTube URL"
               class="form-input"
               placeholder="https://youtube.com/watch?v=..."
             />
@@ -173,15 +173,15 @@ defmodule RumblWeb.VideoLive.FormComponent do
         <!-- Video Information -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div class="form-group">
-            <.input 
-              field={@form[:title]} 
-              type="text" 
-              label="Title" 
+            <.input
+              field={@form[:title]}
+              type="text"
+              label="Title"
               class="form-input"
               placeholder="Enter video title"
             />
           </div>
-          
+
           <div class="form-group">
             <.input
               field={@form[:category_id]}
@@ -195,10 +195,10 @@ defmodule RumblWeb.VideoLive.FormComponent do
         </div>
 
         <div class="form-group mb-6">
-          <.input 
-            field={@form[:description]} 
-            type="textarea" 
-            label="Description" 
+          <.input
+            field={@form[:description]}
+            type="textarea"
+            label="Description"
             class="form-input"
             placeholder="Describe your video content, techniques, or materials used..."
             rows="4"
@@ -239,7 +239,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
           isDragging: false,
           selectedFile: null,
           uploadProgress: 0,
-          
+
           handleDrop(e) {
             e.preventDefault();
             const files = e.dataTransfer.files;
@@ -247,14 +247,14 @@ defmodule RumblWeb.VideoLive.FormComponent do
               this.handleFile(files[0]);
             }
           },
-          
+
           handleFileSelect(e) {
             const files = e.target.files;
             if (files.length > 0) {
               this.handleFile(files[0]);
             }
           },
-          
+
           handleFile(file) {
             // Validate file type
             const allowedTypes = ['video/mp4', 'video/webm', 'video/avi', 'video/mov', 'video/quicktime'];
@@ -262,23 +262,23 @@ defmodule RumblWeb.VideoLive.FormComponent do
               alert('Please select a valid video file (MP4, WebM, AVI, MOV)');
               return;
             }
-            
+
             // Validate file size (500MB)
             if (file.size > 500 * 1024 * 1024) {
               alert('File size must be less than 500MB');
               return;
             }
-            
+
             this.selectedFile = file;
             this.simulateUpload();
           },
-          
+
           clearFile() {
             this.selectedFile = null;
             this.uploadProgress = 0;
             document.getElementById('video-file-upload').value = '';
           },
-          
+
           simulateUpload() {
             // Simulate upload progress
             this.uploadProgress = 0;
@@ -312,7 +312,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
       |> assign(assigns)
       |> assign(:form, to_form(changeset))
       |> assign(:categories, category_options)
-      |> allow_upload(:video, 
+      |> allow_upload(:video,
           accept: ~w(.mp4 .webm .avi .mov),
           max_entries: 1,
           max_file_size: 500_000_000, # 500MB
@@ -337,11 +337,11 @@ defmodule RumblWeb.VideoLive.FormComponent do
 
   def handle_event("save", %{"video" => video_params}, socket) do
     # Handle file uploads if present
-    video_params = 
+    video_params =
       video_params
       |> maybe_process_video_upload(socket)
       |> maybe_process_thumbnail_upload(socket)
-    
+
     save_video(socket, socket.assigns.action, video_params)
   end
 
@@ -430,7 +430,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
       {:ok, video} ->
         # Start processing if a new video file was uploaded
         maybe_start_processing(video)
-        
+
         # Broadcast update for real-time functionality
         Phoenix.PubSub.broadcast!(Rumbl.PubSub, "videos", {:video_updated, video})
 
@@ -451,7 +451,7 @@ defmodule RumblWeb.VideoLive.FormComponent do
       {:ok, video} ->
         # Start processing if a video file was uploaded
         maybe_start_processing(video)
-        
+
         # Broadcast creation for real-time functionality
         Phoenix.PubSub.broadcast!(Rumbl.PubSub, "videos", {:video_created, video})
 

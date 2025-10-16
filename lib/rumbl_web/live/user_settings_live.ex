@@ -31,7 +31,7 @@ defmodule RumblWeb.UserSettingsLive do
 
       <!-- Settings Cards -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
+
         <!-- Email Settings Card -->
         <div class="card">
           <div class="card-header">
@@ -55,16 +55,16 @@ defmodule RumblWeb.UserSettingsLive do
               phx-change="validate_email"
             >
               <div class="form-group">
-                <.input 
-                  field={@email_form[:email]} 
-                  type="email" 
-                  label="New email address" 
+                <.input
+                  field={@email_form[:email]}
+                  type="email"
+                  label="New email address"
                   class="form-input"
                   placeholder="Enter new email"
-                  required 
+                  required
                 />
               </div>
-              
+
               <div class="form-group">
                 <.input
                   field={@email_form[:current_password]}
@@ -133,18 +133,18 @@ defmodule RumblWeb.UserSettingsLive do
                 id="hidden_user_email"
                 value={@current_email}
               />
-              
+
               <div class="form-group">
-                <.input 
-                  field={@password_form[:password]} 
-                  type="password" 
-                  label="New password" 
+                <.input
+                  field={@password_form[:password]}
+                  type="password"
+                  label="New password"
                   class="form-input"
                   placeholder="Enter new password"
-                  required 
+                  required
                 />
               </div>
-              
+
               <div class="form-group">
                 <.input
                   field={@password_form[:password_confirmation]}
@@ -154,7 +154,7 @@ defmodule RumblWeb.UserSettingsLive do
                   placeholder="Confirm new password"
                 />
               </div>
-              
+
               <div class="form-group">
                 <.input
                   field={@password_form[:current_password]}
@@ -210,7 +210,7 @@ defmodule RumblWeb.UserSettingsLive do
         </div>
         <div class="card-body">
           <div class="space-y-4">
-            
+
             <!-- Last Login Info -->
             <div class="flex items-center justify-between py-3 border-b border-gray-200">
               <div>
@@ -237,8 +237,8 @@ defmodule RumblWeb.UserSettingsLive do
                 <h4 class="text-sm font-medium text-red-900">Delete account</h4>
                 <p class="text-sm text-red-600">Permanently delete your account and all data</p>
               </div>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 class="btn-danger"
                 onclick="alert('Account deletion feature coming soon')"
               >

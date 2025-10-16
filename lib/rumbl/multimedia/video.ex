@@ -15,17 +15,17 @@ defmodule Rumbl.Multimedia.Video do
     field :video_file_size, :integer
     field :video_file_type, :string
     field :video_duration, :integer
-    
+
     # Thumbnail fields
     field :thumbnail_path, :string
     field :thumbnail_size, :integer
     field :thumbnail_type, :string
-    
+
     # Processing and metadata
     field :processing_status, :string, default: "pending"
     field :upload_completed_at, :utc_datetime
     field :original_filename, :string
-    
+
     # Cloud storage fields
     field :storage_provider, :string, default: "local"
     field :storage_key, :string
@@ -68,7 +68,7 @@ defmodule Rumbl.Multimedia.Video do
   defp validate_url_or_file(changeset) do
     url = get_field(changeset, :url)
     video_file_path = get_field(changeset, :video_file_path)
-    
+
     cond do
       url && String.trim(url) != "" -> changeset
       video_file_path && String.trim(video_file_path) != "" -> changeset
@@ -93,7 +93,7 @@ defmodule Rumbl.Multimedia.Video do
 
   defp validate_file_type(changeset) do
     allowed_types = ["video/mp4", "video/webm", "video/avi", "video/mov", "video/quicktime"]
-    
+
     case get_field(changeset, :video_file_type) do
       type when is_binary(type) ->
         if type in allowed_types do

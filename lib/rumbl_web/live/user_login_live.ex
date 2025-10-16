@@ -26,32 +26,32 @@ defmodule RumblWeb.UserLoginLive do
           <div class="card-body">
             <.simple_form for={@form} id="login_form" action={~p"/users/log_in"} phx-update="ignore">
               <div class="form-group">
-                <.input 
-                  field={@form[:email]} 
-                  type="email" 
-                  label="Email address" 
+                <.input
+                  field={@form[:email]}
+                  type="email"
+                  label="Email address"
                   class="form-input"
                   placeholder="Enter your email"
-                  required 
+                  required
                 />
               </div>
 
               <div class="form-group">
-                <.input 
-                  field={@form[:password]} 
-                  type="password" 
-                  label="Password" 
+                <.input
+                  field={@form[:password]}
+                  type="password"
+                  label="Password"
                   class="form-input"
                   placeholder="Enter your password"
-                  required 
+                  required
                 />
               </div>
 
               <div class="flex items-center justify-between">
-                <.input 
-                  field={@form[:remember_me]} 
-                  type="checkbox" 
-                  label="Keep me logged in" 
+                <.input
+                  field={@form[:remember_me]}
+                  type="checkbox"
+                  label="Keep me logged in"
                   class="h-4 w-4 text-wood-600 focus:ring-wood-500 border-gray-300 rounded"
                 />
                 <.link href={~p"/users/reset_password"} class="text-sm font-medium text-wood-600 hover:text-wood-500">
@@ -78,8 +78,8 @@ defmodule RumblWeb.UserLoginLive do
               </div>
 
               <div class="mt-6 grid grid-cols-2 gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled
                   title="Coming soon"
@@ -90,8 +90,8 @@ defmodule RumblWeb.UserLoginLive do
                   <span class="ml-2">GitHub</span>
                 </button>
 
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled
                   title="Coming soon"

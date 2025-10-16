@@ -55,7 +55,7 @@ defmodule Rumbl.VideoControllerTest do
 
     @tag :skip
     test "does not create vid, renders errors when invalid", %{conn: conn} do
-      # This functionality is now handled by LiveView components  
+      # This functionality is now handled by LiveView components
       # See test/rumbl_web/live/video_live_test.exs for video tests
     end
 

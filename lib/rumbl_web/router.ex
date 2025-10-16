@@ -9,6 +9,7 @@ defmodule RumblWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, html: {RumblWeb.Layouts, :root}
     plug :fetch_current_user
     plug RumblWeb.Auth
   end
@@ -23,7 +24,7 @@ defmodule RumblWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController, only: [:index, :show, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    
+
     live_session :public_videos,
       on_mount: [{RumblWeb.UserAuth, :mount_current_user}] do
       live "/watch/:id", WatchLive, :show
@@ -32,7 +33,7 @@ defmodule RumblWeb.Router do
 
   scope "/manage", RumblWeb do
     pipe_through [:browser, :authenticate_user]
-    
+
     live_session :authenticated_user,
       on_mount: [{RumblWeb.UserAuth, :ensure_authenticated}] do
       live "/videos", VideoLive.Index, :index

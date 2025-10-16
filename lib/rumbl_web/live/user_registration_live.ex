@@ -41,22 +41,22 @@ defmodule RumblWeb.UserRegistrationLive do
               </.error>
 
               <div class="form-group">
-                <.input 
-                  field={@form[:email]} 
-                  type="email" 
-                  label="Email address" 
+                <.input
+                  field={@form[:email]}
+                  type="email"
+                  label="Email address"
                   class="form-input"
                   placeholder="Enter your email address"
-                  required 
+                  required
                 />
               </div>
 
               <!-- Enhanced Password Field with Strength Indicator -->
-              <div 
-                class="form-group" 
-                x-data="{ 
-                  password: '', 
-                  strength: 0, 
+              <div
+                class="form-group"
+                x-data="{
+                  password: '',
+                  strength: 0,
                   showStrength: false,
                   getStrength(password) {
                     let score = 0;
@@ -76,25 +76,25 @@ defmodule RumblWeb.UserRegistrationLive do
                     return colors[score] || 'bg-red-500';
                   }
                 }"
-                x-init="$watch('password', value => { 
-                  strength = getStrength(value); 
-                  showStrength = value.length > 0; 
+                x-init="$watch('password', value => {
+                  strength = getStrength(value);
+                  showStrength = value.length > 0;
                 })"
               >
-                <.input 
-                  field={@form[:password]} 
-                  type="password" 
-                  label="Password" 
+                <.input
+                  field={@form[:password]}
+                  type="password"
+                  label="Password"
                   class="form-input"
                   placeholder="Choose a strong password"
-                  required 
+                  required
                 />
-                
+
                 <!-- Password Strength Indicator -->
                 <div x-show="showStrength" x-transition class="mt-2">
                   <div class="flex justify-between items-center mb-1">
                     <span class="text-sm font-medium text-gray-700">Password strength</span>
-                    <span class="text-sm" x-text="getStrengthText(strength)" 
+                    <span class="text-sm" x-text="getStrengthText(strength)"
                           x-bind:class="{
                             'text-red-600': strength <= 1,
                             'text-orange-600': strength === 2,
@@ -105,7 +105,7 @@ defmodule RumblWeb.UserRegistrationLive do
                     </span>
                   </div>
                   <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       class="h-2 rounded-full transition-all duration-300"
                       x-bind:class="getStrengthColor(strength)"
                       x-bind:style="'width: ' + (strength * 20) + '%'"
@@ -141,16 +141,16 @@ defmodule RumblWeb.UserRegistrationLive do
               <!-- Terms and Privacy -->
               <div class="form-group">
                 <div class="flex items-start">
-                  <input 
-                    type="checkbox" 
-                    id="terms" 
+                  <input
+                    type="checkbox"
+                    id="terms"
                     required
                     class="h-4 w-4 text-wood-600 focus:ring-wood-500 border-gray-300 rounded mt-1"
                   />
                   <label for="terms" class="ml-2 text-sm text-gray-600">
-                    I agree to the 
+                    I agree to the
                     <a href="#" class="text-wood-600 hover:text-wood-500 underline">Terms of Service</a>
-                    and 
+                    and
                     <a href="#" class="text-wood-600 hover:text-wood-500 underline">Privacy Policy</a>
                   </label>
                 </div>

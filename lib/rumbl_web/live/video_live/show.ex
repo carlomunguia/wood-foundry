@@ -11,10 +11,10 @@ defmodule RumblWeb.VideoLive.Show do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     video = Multimedia.get_video!(id)
-    
+
     if video.user_id == socket.assigns.current_user.id do
       Phoenix.PubSub.subscribe(Rumbl.PubSub, "video_updates")
-      
+
       {:noreply,
        socket
        |> assign(:page_title, page_title(socket.assigns.live_action))

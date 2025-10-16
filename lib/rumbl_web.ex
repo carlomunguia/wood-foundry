@@ -21,16 +21,16 @@ defmodule RumblWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, 
+      use Phoenix.Controller,
         namespace: RumblWeb,
         formats: [:html, :json],
         layouts: [html: RumblWeb.Layouts]
-      
+
       import Plug.Conn
       use Gettext, backend: RumblWeb.Gettext
       import RumblWeb.Auth, only: [authenticate_user: 2] # New import
       alias RumblWeb.Router.Helpers, as: Routes
-      
+
       unquote(verified_routes())
     end
   end
@@ -43,7 +43,7 @@ defmodule RumblWeb do
         namespace: RumblWeb
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, 
+      import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Import all HTML functionality (forms, tags, etc)
@@ -137,4 +137,3 @@ defmodule RumblWeb do
     apply(__MODULE__, which, [])
   end
 end
-
